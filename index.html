@@ -36,6 +36,11 @@ function highlight(id) {
     document.getElementById(id).className = 'h';
 }
 
+function reset() {
+    var spans = document.getElementsByTagName('span');
+    Array.prototype.forEach.call(spans, function (s) { s.className = ''; });
+}
+
 function display_time(time) {
     if (typeof time === 'undefined')
         time = new Date();
@@ -54,6 +59,11 @@ function display_time(time) {
     });
 
     highlight('h' + hh % 12);
+
+    window.setTimeout(function () {
+        reset();
+        display_time();
+    }, 30000);
 }
         </script>
     </head>
