@@ -15,17 +15,59 @@
             .r { text-align: right; }
             .h { color: #fff; }
         </style>
+        <script>
+
+var hl_ids = { // maps from 5-minute increments to ids of spans to highlight
+    '0': ['m0'],
+    '5': ['m5', 'm', 'p'],
+    '10': ['m10', 'm', 'p'],
+    '15': ['m15', 'p'],
+    '20': ['m20', 'm', 'p'],
+    '25': ['m20', 'm5', 'm', 'p'],
+    '30': ['m30', 'p'],
+    '35': ['m20', 'm5', 'm', 't'],
+    '40': ['m20', 'm', 't'],
+    '45': ['m15', 't'],
+    '50': ['m10', 'm', 't'],
+    '55': ['m5', 'm', 't']
+};
+
+function highlight(id) {
+    document.getElementById(id).className = 'h';
+}
+
+function display_time(time) {
+    if (typeof time === 'undefined')
+        time = new Date();
+
+    // advance the clock by half its resolution to minimize the
+    // difference to the effective time
+    time = new Date(time.getTime() + 5 / 2 * 60 * 1000);
+
+    // round the time to 5-minute steps
+    var mm = Math.floor(time.getMinutes() / 5) * 5;
+    var hh = time.getHours();
+
+    hl_ids[mm].forEach(function (id) {
+        highlight(id);
+        if (id === 't') hh++;
+    });
+
+    highlight('h' + hh % 12);
+}
+        </script>
     </head>
     <body>
         <div id=face>
-            <table><tr><td class=h>IT IS<td class=m>HALF<td class=r>TEN</tr></table>
-            <table><tr><td>QUARTER<td class=r>TWENTY</tr></table>
-            <table><tr><td>FIVE<td class=m>MINUTES<td class=r>TO</tr></table>
-            <table><tr><td>PAST<td class=m>ONE<td class=r>THREE</tr></table>
-            <table><tr><td>TWO<td class=m>FOUR<td class=r>FIVE</tr></table>
-            <table><tr><td>SIX<td class=m>SEVEN<td class=r>EIGHT</tr></table>
-            <table><tr><td>NINE<td class=m>TEN<td class=r>ELEVEN</tr></table>
-            <table><tr><td>TWELVE<td class=r>O’CLOCK</tr></table>
+            <table><tr><td class=h>IT IS<td class=m><span id=m30>HALF<td class=r><span id=m10>TEN</tr></table>
+            <table><tr><td><span id=m15>QUARTER<td class=r><span id=m20>TWENTY</tr></table>
+            <table><tr><td><span id=m5>FIVE<td class=m><span id=m>MINUTES<td class=r><span id=t>TO</tr></table>
+            <table><tr><td><span id=p>PAST<td class=m><span id=h1>ONE<td class=r><span id=h3>THREE</tr></table>
+            <table><tr><td><span id=h2>TWO<td class=m><span id=h4>FOUR<td class=r><span id=h5>FIVE</tr></table>
+            <table><tr><td><span id=h6>SIX<td class=m><span id=h7>SEVEN<td class=r><span id=h8>EIGHT</tr></table>
+            <table><tr><td><span id=h9>NINE<td class=m><span id=h10>TEN<td class=r><span id=h11>ELEVEN</tr></table>
+            <table><tr><td><span id=h0>TWELVE<td class=r><span id=m0>O’CLOCK</tr></table>
         </div>
+        <script>display_time();</script>
     </body>
 </html>
