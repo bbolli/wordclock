@@ -38,12 +38,6 @@ function highlight(id) {
 }
 
 function display_time(time) {
-    if (typeof time === 'undefined')
-        time = new Date();
-
-    if (!face)
-        face = document.getElementById('face');
-
     // clear all highlights
     Array.prototype.forEach.call(
         face.getElementsByTagName('td'), function (e) { e.className = ''; }
@@ -65,8 +59,17 @@ function display_time(time) {
     });
 
     highlight('h' + hh % 12);
+}
 
-    window.setTimeout(function () { display_time(); }, 30000);
+function normal() {
+    display_time(new Date());
+    window.setTimeout(function () { normal(); }, 30000);
+}
+
+function fast(time) {
+    display_time(time);
+    time.setTime(time.getTime() + 5 * 60 * 1000);
+    window.setTimeout(function() { fast(time); }, 2000);
 }
         </script>
     </head>
@@ -82,6 +85,13 @@ function display_time(time) {
             <table><tr><td id=h9>NINE</td><td id=h10>TEN</td><td id=h11>ELEVEN</td></tr></table>
             <table><tr><td id=h0>TWELVE</td><td></td><td id=m0>O’CLOCK</td></tr></table>
         </div>
-        <script>display_time();</script>
+
+        <script>
+face = document.getElementById('face');
+if (/\?fast$/.test(window.location))
+    fast(new Date());
+else
+    normal();
+        </script>
     </body>
 </html>
