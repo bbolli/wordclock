@@ -37,13 +37,15 @@ function highlight(id) {
 }
 
 function reset() {
-    var spans = document.getElementsByTagName('span');
-    Array.prototype.forEach.call(spans, function (s) { s.className = ''; });
+    var tds = document.getElementsByTagName('td');
+    Array.prototype.forEach.call(tds, function (td) { td.className = ''; });
 }
 
 function display_time(time) {
     if (typeof time === 'undefined')
         time = new Date();
+
+    highlight('itis');
 
     // advance the clock by half its resolution to minimize the
     // difference to the effective time
@@ -69,14 +71,14 @@ function display_time(time) {
     </head>
     <body>
         <div id=face>
-            <table><tr><td class=h>IT IS</td><td><span id=m30>HALF</span></td><td><span id=m10>TEN</span></td></tr></table>
-            <table><tr><td><span id=m15>QUARTER</span></td><td></td><td><span id=m20>TWENTY</span></td></tr></table>
-            <table><tr><td><span id=m5>FIVE</span></td><td><span id=m>MINUTES</span></td><td><span id=t>TO</span></td></tr></table>
-            <table><tr><td><span id=p>PAST</span></td><td><span id=h1>ONE</span></td><td><span id=h3>THREE</span></td></tr></table>
-            <table><tr><td><span id=h2>TWO</span></td><td><span id=h4>FOUR</span></td><td><span id=h5>FIVE</span></td></tr></table>
-            <table><tr><td><span id=h6>SIX</span></td><td><span id=h7>SEVEN</span></td><td><span id=h8>EIGHT</span></td></tr></table>
-            <table><tr><td><span id=h9>NINE</span></td><td><span id=h10>TEN</span></td><td><span id=h11>ELEVEN</span></td></tr></table>
-            <table><tr><td><span id=h0>TWELVE</span></td><td></td><td><span id=m0>O’CLOCK</span></td></tr></table>
+            <table><tr><td id=itis>IT IS</td><td id=m30>HALF</td><td id=m10>TEN</td></tr></table>
+            <table><tr><td id=m15>QUARTER</td><td></td><td id=m20>TWENTY</td></tr></table>
+            <table><tr><td id=m5>FIVE</td><td id=m>MINUTES</td><td id=t>TO</td></tr></table>
+            <table><tr><td id=p>PAST</td><td id=h1>ONE</td><td id=h3>THREE</td></tr></table>
+            <table><tr><td id=h2>TWO</td><td id=h4>FOUR</td><td id=h5>FIVE</td></tr></table>
+            <table><tr><td id=h6>SIX</td><td id=h7>SEVEN</td><td id=h8>EIGHT</td></tr></table>
+            <table><tr><td id=h9>NINE</td><td id=h10>TEN</td><td id=h11>ELEVEN</td></tr></table>
+            <table><tr><td id=h0>TWELVE</td><td></td><td id=m0>O’CLOCK</td></tr></table>
         </div>
         <script>display_time();</script>
     </body>
