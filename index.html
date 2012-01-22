@@ -45,12 +45,8 @@ function display_time(time) {
 
     highlight('itis');
 
-    // advance the clock by half its resolution to minimize the
-    // difference to the effective time
-    time = new Date(time.getTime() + 5 / 2 * 60 * 1000);
-
     // round the time to 5-minute steps
-    var mm = Math.floor(time.getMinutes() / 5) * 5;
+    var mm = Math.floor(time.getMinutes() / 5 + 0.5) * 5;
     var hh = time.getHours();
 
     hl_ids[mm].forEach(function (id) {
