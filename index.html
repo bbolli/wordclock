@@ -13,48 +13,28 @@
             table { width: 100%; }
             tr > td + td { text-align: center; }
             tr > td + td + td { text-align: right; }
-            .h { color: #fff; }
+            #itis { color: #fff; }
+        </style>
+        <style type=text/css>
+            /* two dummy rules that will be replaced dynamically */
+            .mxx { }
+            #hyy { }
         </style>
         <script>
-
-var face,
-    hl_ids = { // maps from 5-minute increments to ids of spans to highlight
-    '0': ['m0'],
-    '5': ['m5', 'm', 'p'],
-    '10': ['m10', 'm', 'p'],
-    '15': ['m15', 'p'],
-    '20': ['m20', 'm', 'p'],
-    '25': ['m20', 'm5', 'm', 'p'],
-    '30': ['m30', 'p'],
-    '35': ['m20', 'm5', 'm', 't'],
-    '40': ['m20', 'm', 't'],
-    '45': ['m15', 't'],
-    '50': ['m10', 'm', 't'],
-    '55': ['m5', 'm', 't']
-};
-
-function highlight(id) {
-    document.getElementById(id).className = 'h';
-}
+var style, rule = ' { color: #fff; }';
 
 function display_time(time) {
-    // clear all highlights
-    Array.prototype.forEach.call(
-        face.getElementsByTagName('td'), function (e) { e.className = ''; }
-    );
-
-    highlight('itis');
 
     // round the time to 5-minute steps
     var mm = Math.floor(time.getMinutes() / 5 + 0.5) * 5;
     var hh = time.getHours();
+    if (mm > 30) hh++;
 
-    hl_ids[mm].forEach(function (id) {
-        highlight(id);
-        if (id === 't') hh++;
-    });
-
-    highlight('h' + hh % 12);
+    // replace the dynamic rules
+    style.deleteRule(0);
+    style.deleteRule(0);
+    style.insertRule('.m' + mm + rule, 0);
+    style.insertRule('#h' + hh % 12 + rule, 0);
 }
 
 function normal() {
@@ -72,18 +52,18 @@ function fast(time) {
 
     <body>
         <div id=face>
-            <table><tr><td id=itis>IT IS</td><td id=m30>HALF</td><td id=m10>TEN</td></tr></table>
-            <table><tr><td id=m15>QUARTER</td><td></td><td id=m20>TWENTY</td></tr></table>
-            <table><tr><td id=m5>FIVE</td><td id=m>MINUTES</td><td id=t>TO</td></tr></table>
-            <table><tr><td id=p>PAST</td><td id=h1>ONE</td><td id=h3>THREE</td></tr></table>
+            <table><tr><td id=itis>IT IS</td><td class=m30>HALF</td><td class="m10 m50">TEN</td></tr></table>
+            <table><tr><td class="m15 m45">QUARTER</td><td></td><td class="m20 m25 m40 m35">TWENTY</td></tr></table>
+            <table><tr><td class="m5 m25 m35 m55">FIVE</td><td class="m5 m10 m20 m25 m35 m40 m50 m55">MINUTES</td><td class="m35 m40 m45 m50 m55">TO</td></tr></table>
+            <table><tr><td class="m5 m10 m15 m20 m25 m30">PAST</td><td id=h1>ONE</td><td id=h3>THREE</td></tr></table>
             <table><tr><td id=h2>TWO</td><td id=h4>FOUR</td><td id=h5>FIVE</td></tr></table>
             <table><tr><td id=h6>SIX</td><td id=h7>SEVEN</td><td id=h8>EIGHT</td></tr></table>
             <table><tr><td id=h9>NINE</td><td id=h10>TEN</td><td id=h11>ELEVEN</td></tr></table>
-            <table><tr><td id=h0>TWELVE</td><td></td><td id=m0>O’CLOCK</td></tr></table>
+            <table><tr><td id=h0>TWELVE</td><td></td><td class=m0>O’CLOCK</td></tr></table>
         </div>
 
         <script>
-face = document.getElementById('face');
+style = document.styleSheets[1];
 if (/\?fast$/.test(window.location))
     fast(new Date());
 else
