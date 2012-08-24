@@ -26,9 +26,9 @@ var style, rule = ' { color: #fff; }';
 function display_time(time) {
 
     // round the time to 5-minute steps
-    var mm = Math.floor(time.getMinutes() / 5 + 0.5) * 5;
+    var mm = Math.floor(time.getMinutes() / 5 + 0.5) * 5 % 60;
     var hh = time.getHours();
-    if (mm > 30) hh++;
+    if (time.getMinutes() > 30) hh++;
 
     // replace the dynamic rules
     style.deleteRule(0);
