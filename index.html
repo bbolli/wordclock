@@ -44,8 +44,8 @@ function normal() {
 
 function fast(time) {
     display_time(time);
-    time.setTime(time.getTime() + 5 * 60 * 1000);
-    window.setTimeout(function() { fast(time); }, 2000);
+    time.setTime(time.getTime() + 60 * 1000);
+    window.setTimeout(function() { fast(time); }, 500);
 }
         </script>
     </head>
