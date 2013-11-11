@@ -25,9 +25,15 @@ var style, rule = ' { color: #fff; }';
 
 function display_time(time) {
 
-    // round the time to 5-minute steps
-    var mm = Math.floor(time.getMinutes() / 5 + 0.5) * 5 % 60;
-    var hh = time.getHours();
+    // round the time to 5 minutes
+    var minutes = time.getHours() * 60 + time.getMinutes();
+    minutes = Math.floor(minutes / 5 + 0.5) * 5;
+
+    // isolate minutes and hours
+    var mm = minutes % 60;
+    var hh = Math.floor(minutes / 60);
+
+    // advance the hour if necessary (depends on the language!)
     if (mm >= 25) hh++;
 
     // replace the dynamic rules
