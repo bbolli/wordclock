@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- via https://plus.google.com/114122960748905067938/posts/CRAGmxJc84h -->
+<!-- vo https://plus.google.com/114122960748905067938/posts/CRAGmxJc84h -->
 
 <html>
     <head>
@@ -16,7 +16,7 @@
             .itis { color: #fff; }
         </style>
         <style>
-            /* two dummy rules that will be replaced dynamically */
+            /* zwo Regle wo dynamisch ersetzt wärde */
             .mxx { }
             #hyy { }
         </style>
@@ -26,18 +26,18 @@ function display_time(time) {
     const style = document.styleSheets[1];
     const rule = ' { color: #fff; }';
 
-    // round the time to 5 minutes
+    // d Zit uf füf Minute runde
     let mm = time.getHours() * 60 + time.getMinutes();
     mm = Math.floor(mm / 5 + 0.5) * 5;
 
-    // isolate hours and minutes
+    // Stunge u Minute uftrenne
     let hh = Math.floor(mm / 60);
     mm %= 60;
 
-    // advance the hour if necessary (depends on the language!)
+    // vilech d Stung füresteue (chunnt uf d Sprach druf a!)
     if (mm >= 25) hh++;
 
-    // replace the dynamic rules
+    // ersetz die dynamische Regle
     style.deleteRule(0);
     style.deleteRule(0);
     style.insertRule('.m' + mm + rule, 0);
