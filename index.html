@@ -27,12 +27,12 @@ function display_time(time) {
     const rule = ' { color: #fff; }';
 
     // round the time to 5 minutes
-    let minutes = time.getHours() * 60 + time.getMinutes();
-    minutes = Math.floor(minutes / 5 + 0.5) * 5;
+    let mm = time.getHours() * 60 + time.getMinutes();
+    mm = Math.floor(mm / 5 + 0.5) * 5;
 
-    // isolate minutes and hours
-    const mm = minutes % 60;
-    let hh = Math.floor(minutes / 60);
+    // isolate hours and minutes
+    let hh = Math.floor(mm / 60);
+    mm %= 60;
 
     // advance the hour if necessary (depends on the language!)
     if (mm > 30) hh++;
