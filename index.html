@@ -6,8 +6,8 @@
     <head>
         <meta charset=utf-8>
         <title>Doug Jackson’s word clock</title>
-        <style type=text/css>
-            @import url(http://fonts.googleapis.com/css?family=Quicksand);
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Quicksand);
             body { color: #333; background-color: #111; }
             #face { font: 36px Futura,Quicksand; width: 10em; margin: 5em auto; }
             table { width: 100%; }
@@ -15,23 +15,24 @@
             tr > td + td + td { text-align: right; }
             #itis { color: #fff; }
         </style>
-        <style type=text/css>
+        <style>
             /* two dummy rules that will be replaced dynamically */
             .mxx { }
             #hyy { }
         </style>
         <script>
-var style, rule = ' { color: #fff; }';
 
 function display_time(time) {
+    const style = document.styleSheets[1];
+    const rule = ' { color: #fff; }';
 
     // round the time to 5 minutes
-    var minutes = time.getHours() * 60 + time.getMinutes();
+    let minutes = time.getHours() * 60 + time.getMinutes();
     minutes = Math.floor(minutes / 5 + 0.5) * 5;
 
     // isolate minutes and hours
-    var mm = minutes % 60;
-    var hh = Math.floor(minutes / 60);
+    const mm = minutes % 60;
+    let hh = Math.floor(minutes / 60);
 
     // advance the hour if necessary (depends on the language!)
     if (mm > 30) hh++;
@@ -53,6 +54,7 @@ function fast(time) {
     time.setTime(time.getTime() + 60 * 1000);
     window.setTimeout(function() { fast(time); }, 500);
 }
+
         </script>
     </head>
 
@@ -69,11 +71,12 @@ function fast(time) {
         </div>
 
         <script>
-style = document.styleSheets[1];
+
 if (/\?fast$/.test(window.location))
     fast(new Date());
 else
     normal();
+
         </script>
     </body>
 </html>
