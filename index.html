@@ -23,9 +23,6 @@
         <script>
 
 function display_time(time) {
-    const style = document.styleSheets[1];
-    const rule = ' { color: #fff; }';
-
     // round the time to 5 minutes
     let mm = time.getHours() * 60 + time.getMinutes();
     mm = Math.floor(mm / 5 + 0.5) * 5;
@@ -37,11 +34,13 @@ function display_time(time) {
     // advance the hour if necessary (depends on the language!)
     if (mm > 30) hh++;
 
-    // replace the dynamic rules
+    // replace the dynamic CSS rules
+    const style = document.styleSheets[1];
     style.deleteRule(0);
     style.deleteRule(0);
-    style.insertRule('.m' + mm + rule, 0);
-    style.insertRule('#h' + hh % 12 + rule, 0);
+    const rule = '{ color: #fff; }';
+    style.insertRule(`.m${mm} ${rule}`, 0);
+    style.insertRule(`#h${hh % 12} ${rule}`, 0);
 }
 
 function normal() {
